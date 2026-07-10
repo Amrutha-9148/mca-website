@@ -19,7 +19,7 @@ function Home() {
       setCurrentSlide(prev => (prev + 1) % slides.length);
     }, 4000);
     return () => clearInterval(timer);
-  }, []);
+  },[slides.length]);
 
   useEffect(() => {
     fetch('http://localhost:5000/api/news')
