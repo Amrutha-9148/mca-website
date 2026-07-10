@@ -6,7 +6,7 @@ function PublicPlacements() {
   const [placements, setPlacements] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/placements')
+    fetch('https://mca-backendd.onrender.com/api/placements')
       .then(r => r.json())
       .then(d => setPlacements(Array.isArray(d) ? d : []));
   }, []);

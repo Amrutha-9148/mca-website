@@ -5,7 +5,7 @@ function Queries() {
   const [queries, setQueries] = useState([]);
 
   const fetchQueries = async () => {
-    const response = await fetch('http://localhost:5000/api/queries');
+    const response = await fetch('https://mca-backendd.onrender.com/api/queries');
     const data = await response.json();
     setQueries(Array.isArray(data) ? data : []);
   };
@@ -15,12 +15,12 @@ function Queries() {
   }, []);
 
   const handleRead = async (id) => {
-    await fetch(`http://localhost:5000/api/queries/read/${id}`, { method: 'PUT' });
+    await fetch(`https://mca-backendd.onrender.com/api/queries/read/${id}`, { method: 'PUT' });
     fetchQueries();
   };
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/api/queries/delete/${id}`, { method: 'DELETE' });
+    await fetch(`https://mca-backendd.onrender.com/api/queries/delete/${id}`, { method: 'DELETE' });
     fetchQueries();
   };
 

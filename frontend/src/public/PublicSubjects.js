@@ -6,7 +6,7 @@ function PublicSubjects() {
   const [subjects, setSubjects] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/subjects')
+    fetch('https://mca-backendd.onrender.com/api/subjects')
       .then(r => r.json())
       .then(d => setSubjects(Array.isArray(d) ? d : []));
   }, []);

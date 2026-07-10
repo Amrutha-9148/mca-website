@@ -5,7 +5,7 @@ function Subjects() {
   const [subjects, setSubjects] = useState([]);
 
   const fetchSubjects = async () => {
-    const response = await fetch('http://localhost:5000/api/subjects');
+    const response = await fetch('https://mca-backendd.onrender.com/api/subjects');
     const data = await response.json();
     setSubjects(data);
   };

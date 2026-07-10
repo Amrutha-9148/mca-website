@@ -7,7 +7,7 @@ function Placements() {
   const [message, setMessage] = useState('');
 
   const fetchPlacements = async () => {
-    const response = await fetch('http://localhost:5000/api/placements');
+    const response = await fetch('https://mca-backendd.onrender.com/api/placements');
     const data = await response.json();
     setPlacements(data);
   };
@@ -18,7 +18,7 @@ function Placements() {
 
   const handleAdd = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:5000/api/placements/add', {
+    const response = await fetch('https://mca-backendd.onrender.com/api/placements/add', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
@@ -30,7 +30,7 @@ function Placements() {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/api/placements/delete/${id}`, { method: 'DELETE' });
+    await fetch(`https://mca-backendd.onrender.com/api/placements/delete/${id}`, { method: 'DELETE' });
     fetchPlacements();
   };
 

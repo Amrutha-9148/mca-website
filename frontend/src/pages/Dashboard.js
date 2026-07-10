@@ -5,10 +5,10 @@ function Dashboard() {
   const [counts, setCounts] = useState({ students: 0, faculty: 4, subjects: 0, news: 0, placements: 0 });
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/students').then(r => r.json()).then(d => setCounts(c => ({...c, students: Array.isArray(d) ? d.length : 0})));
-    fetch('http://localhost:5000/api/subjects').then(r => r.json()).then(d => setCounts(c => ({...c, subjects: Array.isArray(d) ? d.length : 0})));
-    fetch('http://localhost:5000/api/news').then(r => r.json()).then(d => setCounts(c => ({...c, news: Array.isArray(d) ? d.length : 0})));
-    fetch('http://localhost:5000/api/placements').then(r => r.json()).then(d => setCounts(c => ({...c, placements: Array.isArray(d) ? d.length : 0})));
+    fetch('https://mca-backendd.onrender.com/api/students').then(r => r.json()).then(d => setCounts(c => ({...c, students: Array.isArray(d) ? d.length : 0})));
+    fetch('https://mca-backendd.onrender.com/api/subjects').then(r => r.json()).then(d => setCounts(c => ({...c, subjects: Array.isArray(d) ? d.length : 0})));
+    fetch('https://mca-backendd.onrender.com/api/news').then(r => r.json()).then(d => setCounts(c => ({...c, news: Array.isArray(d) ? d.length : 0})));
+    fetch('https://mca-backendd.onrender.com/api/placements').then(r => r.json()).then(d => setCounts(c => ({...c, placements: Array.isArray(d) ? d.length : 0})));
   }, []);
 
   const cards = [

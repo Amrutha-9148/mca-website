@@ -9,7 +9,7 @@ function Gallery() {
 
   const fetchGallery = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/gallery');
+      const response = await fetch('https://mca-backendd.onrender.com/api/gallery');
       const data = await response.json();
       setGallery(Array.isArray(data) ? data : []);
     } catch (error) {
@@ -27,7 +27,7 @@ function Gallery() {
     formData.append('title', title);
     formData.append('image', image);
 
-    const response = await fetch('http://localhost:5000/api/gallery/add', {
+    const response = await fetch('https://mca-backendd.onrender.com/api/gallery/add', {
       method: 'POST',
       body: formData
     });
@@ -39,7 +39,7 @@ function Gallery() {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/api/gallery/delete/${id}`, { method: 'DELETE' });
+    await fetch(`https://mca-backendd.onrender.com/api/gallery/delete/${id}`, { method: 'DELETE' });
     fetchGallery();
   };
 
@@ -71,7 +71,7 @@ function Gallery() {
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
           {gallery.map((item) => (
             <div key={item.id} style={{ width: '200px', textAlign: 'center', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-              <img src={`http://localhost:5000/uploads/${item.image_name}`} alt={item.title}
+              <img src={`https://mca-backendd.onrender.com/uploads/${item.image_name}`} alt={item.title}
                 style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
               <div style={{ padding: '10px' }}>
                 <p style={{ fontSize: '13px', marginBottom: '8px' }}>{item.title}</p>

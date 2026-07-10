@@ -8,7 +8,7 @@ function News() {
   const [message, setMessage] = useState('');
 
   const fetchNews = async () => {
-    const response = await fetch('http://localhost:5000/api/news');
+    const response = await fetch('https://mca-backendd.onrender.com/api/news');
     const data = await response.json();
     setNews(data);
   };
@@ -26,7 +26,7 @@ function News() {
     form.append('venue', formData.venue);
     if (image) form.append('image', image);
 
-    const response = await fetch('http://localhost:5000/api/news/add', {
+    const response = await fetch('https://mca-backendd.onrender.com/api/news/add', {
       method: 'POST',
       body: form
     });
@@ -38,7 +38,7 @@ function News() {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/api/news/delete/${id}`, { method: 'DELETE' });
+    await fetch(`https://mca-backendd.onrender.com/api/news/delete/${id}`, { method: 'DELETE' });
     fetchNews();
   };
 
@@ -117,7 +117,7 @@ function News() {
               <div style={{ display: 'flex', gap: '20px', flex: 1 }}>
                 {/* Event Image */}
                 {item.image && (
-                  <img src={`http://localhost:5000/uploads/${item.image}`} alt={item.title}
+                  <img src={`https://mca-backendd.onrender.com/uploads/${item.image}`} alt={item.title}
                     style={{ width: '100px', height: '80px', objectFit: 'cover', borderRadius: '8px', flexShrink: 0 }} />
                 )}
                 <div>

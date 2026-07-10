@@ -12,7 +12,7 @@ function Students() {
   const [uploading, setUploading] = useState(false);
 
   const fetchStudents = async () => {
-    const response = await fetch('http://localhost:5000/api/students');
+    const response = await fetch('https://mca-backendd.onrender.com/api/students');
     const data = await response.json();
     setStudents(data);
   };
@@ -23,7 +23,7 @@ function Students() {
 
   const handleAdd = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:5000/api/students/add', {
+    const response = await fetch('https://mca-backendd.onrender.com/api/students/add', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
@@ -43,7 +43,7 @@ function Students() {
     const formDataExcel = new FormData();
     formDataExcel.append('file', excelFile);
 
-    const response = await fetch('http://localhost:5000/api/students/upload-excel', {
+    const response = await fetch('https://mca-backendd.onrender.com/api/students/upload-excel', {
       method: 'POST',
       body: formDataExcel
     });
@@ -55,7 +55,7 @@ function Students() {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/api/students/delete/${id}`, { method: 'DELETE' });
+    await fetch(`https://mca-backendd.onrender.com/api/students/delete/${id}`, { method: 'DELETE' });
     fetchStudents();
   };
 

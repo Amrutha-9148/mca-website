@@ -22,7 +22,7 @@ function Home() {
   },[slides.length]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/news')
+    fetch('https://mca-backendd.onrender.com/api/news')
       .then(res => res.json())
       .then(data => setNews(Array.isArray(data) ? data.slice(0, 3) : []))
       .catch(() => setNews([]));
@@ -30,7 +30,7 @@ function Home() {
 
   const handleQuery = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:5000/api/queries/add', {
+    const response = await fetch('https://mca-backendd.onrender.com/api/queries/add', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)

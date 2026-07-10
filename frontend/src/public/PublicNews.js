@@ -6,7 +6,7 @@ function PublicNews() {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/news')
+    fetch('https://mca-backendd.onrender.com/api/news')
       .then(r => r.json())
       .then(d => setNews(Array.isArray(d) ? d : []));
   }, []);
