@@ -17,7 +17,7 @@ const upload = multer({ storage });
 
 // Get all news
 router.get('/', (req, res) => {
-  db.query('SELECT * FROM news ORDER BY date DESC', (err, results) => {
+  db.query('SELECT * FROM news ORDER BY created_at DESC', (err, results) => {
     if (err) return res.status(500).json({ message: 'Error fetching news' });
     res.json(results);
   });
