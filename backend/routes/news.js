@@ -2,20 +2,16 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 const multer = require('multer');
-const path = require('path');
+const cloudinary = require('cloudinary').v2;
 
-// Multer setup for image upload
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  }
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
-const upload = multer({ storage });
 
-// Get all news
+const upload = multer({ storage: multer.memoryStorage() });
+
 router.get('/', (req, res) => {
   db.query('SELECT * FROM news ORDER BY created_at DESC', (err, results) => {
     if (err) return res.status(500).json({ message: 'Error fetching news' });
@@ -23,18 +19,31 @@ router.get('/', (req, res) => {
   });
 });
 
-// Add news with photo and venue
 router.post('/add', upload.single('image'), (req, res) => {
   const { title, description, date, venue } = req.body;
-  const image = req.file ? req.file.filename : null;
-  const sql = 'INSERT INTO news (title, description, date, venue, image) VALUES (?, ?, ?, ?, ?)';
-  db.query(sql, [title, description, date, venue, image], (err, result) => {
-    if (err) return res.status(500).json({ message: 'Error adding news' });
-    res.json({ message: 'News added successfully!' });
-  });
+
+  const saveNews = (imageUrl) => {
+    const sql = 'INSERT INTO news (title, description, date, venue, image) VALUES (?, ?, ?, ?, ?)';
+    db.query(sql, [title, description, date, venue, imageUrl], (err, result) => {
+      if (err) return res.status(500).json({ message: 'Error adding news' });
+      res.json({ message: 'News added successfully!' });
+    });
+  };
+
+  if (req.file) {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: 'mca-news' },
+      (error, result) => {
+        if (error) return res.status(500).json({ message: 'Error uploading image' });
+        saveNews(result.secure_url);
+      }
+    );
+    stream.end(req.file.buffer);
+  } else {
+    saveNews(null);
+  }
 });
 
-// Delete news
 router.delete('/delete/:id', (req, res) => {
   db.query('DELETE FROM news WHERE id = ?', [req.params.id], (err, result) => {
     if (err) return res.status(500).json({ message: 'Error deleting news' });
