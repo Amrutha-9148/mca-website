@@ -117,7 +117,7 @@ function News() {
               <div style={{ display: 'flex', gap: '20px', flex: 1 }}>
                 {/* Event Image */}
                 {item.image && (
-                  <img src={`https://mca-backendd.onrender.com/uploads/${item.image}`} alt={item.title}
+                  <img src={item.image}
                     style={{ width: '100px', height: '80px', objectFit: 'cover', borderRadius: '8px', flexShrink: 0 }} />
                 )}
                 <div>
