@@ -2,18 +2,15 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 const multer = require('multer');
-const path = require('path');
+const cloudinary = require('cloudinary').v2;
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  }
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-const upload = multer({ storage });
+const upload = multer({ storage: multer.memoryStorage() });
 
 router.get('/', (req, res) => {
   db.query('SELECT * FROM gallery ORDER BY created_at DESC', (err, results) => {
@@ -24,12 +21,22 @@ router.get('/', (req, res) => {
 
 router.post('/add', upload.single('image'), (req, res) => {
   const { title } = req.body;
-  const image_name = req.file.filename;
-  const sql = 'INSERT INTO gallery (title, image_name) VALUES (?, ?)';
-  db.query(sql, [title, image_name], (err, result) => {
-    if (err) return res.status(500).json({ message: 'Error adding image' });
-    res.json({ message: 'Image uploaded successfully!' });
-  });
+  
+  const stream = cloudinary.uploader.upload_stream(
+    { folder: 'mca-gallery' },
+    (error, result) => {
+      if (error) return res.status(500).json({ message: 'Error uploading to Cloudinary' });
+      
+      const image_url = result.secure_url;
+      const sql = 'INSERT INTO gallery (title, image_name) VALUES (?, ?)';
+      db.query(sql, [title, image_url], (err, dbResult) => {
+        if (err) return res.status(500).json({ message: 'Error saving to database' });
+        res.json({ message: 'Image uploaded successfully!' });
+      });
+    }
+  );
+  
+  stream.end(req.file.buffer);
 });
 
 router.delete('/delete/:id', (req, res) => {
