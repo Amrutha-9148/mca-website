@@ -71,7 +71,7 @@ function Gallery() {
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
           {gallery.map((item) => (
             <div key={item.id} style={{ width: '200px', textAlign: 'center', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-              <img src={`https://mca-backendd.onrender.com/uploads/${item.image_name}`} alt={item.title}
+              <img src={item.image_name} alt={item.title}
                 style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
               <div style={{ padding: '10px' }}>
                 <p style={{ fontSize: '13px', marginBottom: '8px' }}>{item.title}</p>
