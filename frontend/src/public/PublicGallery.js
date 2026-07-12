@@ -93,6 +93,7 @@ function PublicGallery() {
                 onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.08)'; }}
               >
                 <img src={item.image_name} alt={item.title}
+                 onError={(e) => { e.target.style.display='none'; }}
                   style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
                 <div style={{ padding: '12px 15px' }}>
                   <p style={{ fontSize: '14px', color: '#1a2a5e', fontWeight: '600', margin: 0 }}>{item.title}</p>
