@@ -117,7 +117,7 @@ function News() {
               <div style={{ display: 'flex', gap: '20px', flex: 1 }}>
                 {/* Event Image */}
                 {item.image && (
-                  <img src={item.image}
+                  <img src={item.image} alt={item.title}
                     style={{ width: '100px', height: '80px', objectFit: 'cover', borderRadius: '8px', flexShrink: 0 }} />
                 )}
                 <div>
