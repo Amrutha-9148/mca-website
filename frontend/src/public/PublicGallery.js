@@ -92,7 +92,7 @@ function PublicGallery() {
                 onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 12px 25px rgba(26,42,94,0.18)'; }}
                 onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.08)'; }}
               >
-                <img src={`https://mca-backendd.onrender.com/uploads/${item.image_name}`} alt={item.title}
+                <img src={item.image_name} alt={item.title}
                   style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
                 <div style={{ padding: '12px 15px' }}>
                   <p style={{ fontSize: '14px', color: '#1a2a5e', fontWeight: '600', margin: 0 }}>{item.title}</p>
