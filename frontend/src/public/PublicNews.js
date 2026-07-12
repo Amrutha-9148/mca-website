@@ -90,9 +90,18 @@ function PublicNews() {
               onMouseEnter={e => { e.currentTarget.style.transform = 'translateX(5px)'; e.currentTarget.style.boxShadow = '0 8px 25px rgba(26,42,94,0.15)'; }}
               onMouseLeave={e => { e.currentTarget.style.transform = 'translateX(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.07)'; }}
             >
-              <h3 style={{ color: '#1a2a5e', marginBottom: '10px', fontSize: '18px' }}>{item.title}</h3>
-              <p style={{ color: '#555', marginBottom: '12px', lineHeight: '1.7' }}>{item.description}</p>
-              <p style={{ color: '#cc0000', fontSize: '13px', fontWeight: 'bold', margin: 0 }}>📅 {new Date(item.date).toDateString()}</p>
+              <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+                {item.image && (
+                  <img src={item.image} alt={item.title}
+                    style={{ width: '180px', height: '140px', objectFit: 'cover', borderRadius: '8px', flexShrink: 0 }} />
+                )}
+                <div>
+                  <h3 style={{ color: '#1a2a5e', marginBottom: '10px', fontSize: '18px' }}>{item.title}</h3>
+                  <p style={{ color: '#555', marginBottom: '12px', lineHeight: '1.7' }}>{item.description}</p>
+                  {item.venue && <p style={{ color: '#555', fontSize: '13px', marginBottom: '8px' }}>📍 {item.venue}</p>}
+                  <p style={{ color: '#cc0000', fontSize: '13px', fontWeight: 'bold', margin: 0 }}>📅 {new Date(item.date).toDateString()}</p>
+                </div>
+              </div>
             </div>
           ))
         )}
